@@ -1,5 +1,7 @@
 const fs = require('fs');
 
+//TASK-1
+
 function readCsvFromFile(filePath) {
     try {
         const csvData = fs.readFileSync(filePath, 'utf8');
@@ -8,6 +10,8 @@ function readCsvFromFile(filePath) {
         console.error(`Error reading file from disk: ${err}`);
     }
 }
+
+//TASK-2
 
 function fromCsvToJson(csvData){
     // name,surname,yob,gender
@@ -43,17 +47,23 @@ function fromCsvToJson(csvData){
     // ["sara","de prà",1989,"f"]
     // ]
 
+    //creo oggetti per ogni row, e li metto in un array
     const ObjectFromEntries = createObjectOfEntries(keys,values);
     console.log(ObjectFromEntries);
     
+    //converto l'array degli oggetti in json
     const json = convertObjectToJson(ObjectFromEntries);
     return json;
 }
+
+//TASK-2-1
 
 function splitCsvInRows(csvData) {
     const arrayData = csvData.split(/\r?\n/);
     return arrayData;
 }
+
+//TASK-2-2
 
 function splitRows(arrayData){
     let newArrayData = [];
@@ -68,10 +78,14 @@ function splitRows(arrayData){
     return newArrayData;
 }
 
+//TASK-2-3
+
 function getKeysFromFirstLine(arrayData){
     const arrayKeys = [...arrayData[0]];
     return arrayKeys;
 }
+
+//TASK-2-4
 
 function getValues(arrayData){
     let arrayOfValues = [];
@@ -83,6 +97,8 @@ function getValues(arrayData){
 
     return arrayOfValues;
 }
+
+//TASK-2-5
 
 function createObjectOfEntries(keys, values){
     const arrayOfEntries = [];
@@ -98,6 +114,8 @@ function createObjectOfEntries(keys, values){
     return arrayOfEntries;
 }
 
+//TASK-2-5-1
+
 function createEntry(keys, valueArray){
     const obj = {};
 
@@ -110,8 +128,22 @@ function createEntry(keys, valueArray){
     return obj;
 }
 
+//TASK-2-6
+
 function convertObjectToJson(object) {
     return JSON.stringify(object);
+}
+
+//TASK-3
+
+function writeJsonToFile(filePath, fileJson){
+    fs.writeFile(filePath, fileJson, err => {
+        if (err) {
+            console.error(err);
+        } else {
+            console.log("file json creato con successo");
+        }
+    })
 }
 
 function main() {
@@ -123,7 +155,7 @@ function main() {
     console.log(json);
     
 
-    // writeJsonToFile(filePath); //scrivo
+    writeJsonToFile("./output/students.json", json); //scrivo
 }
 
 main();
