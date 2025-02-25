@@ -156,7 +156,7 @@ function main() {
     console.log(json);
     
 
-    writeJsonToFile("./output/students.json", json); //scrivo
+    writeJsonToFile("./output/test1.json", json); //scrivo
 }
 
 main();
