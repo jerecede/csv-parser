@@ -131,7 +131,8 @@ function createEntry(keys, valueArray){
 //TASK-2-6
 
 function convertObjectToJson(object) {
-    return JSON.stringify(object);
+    const json = JSON.stringify(object);
+    return json;
 }
 
 //TASK-3
