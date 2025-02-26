@@ -1,14 +1,24 @@
 const fs = require('fs');
 
-// The process.argv contains an array where
+// The process.argv, argumentvalue, contains an array where
 // the 0th index contains the node executable path,
 // 1st index contains the path to your current file
 // and then the rest index contains the passed arguments.
 
-//TASK PATH
+//PRENDE E CONTROLLA ARGUMENTS della CONSOLE
 
 function getOriginPath(){
     const arguments = process.argv;
+
+    const firstArg = arguments[2];
+    const secondArg = arguments[3];
+
+    if(!firstArg){
+        console.log("inserire due argomenti, origine e destinazione!");
+    }
+    if(!secondArg){
+        console.log("inserire il secondo argomento, destinazione!")
+    }
     return arguments[2];
 }
 
@@ -17,7 +27,7 @@ function getDestinationPath(){
     return arguments[3];
 }
 
-//TASK-1
+//LEGGE
 
 function readFile(filePath) {
     try {
@@ -28,7 +38,7 @@ function readFile(filePath) {
     }
 }
 
-//TASK-2
+//CONVERSIONE
 
 function fromCsvToJson(csvData){
     // name,surname,yob,gender
@@ -152,7 +162,7 @@ function convertObjectToJson(object) {
     return json;
 }
 
-//TASK-3
+//SCRIVE
 
 function writeFile(filePath, fileJson){
     fs.writeFile(filePath, fileJson, err => {
@@ -169,64 +179,17 @@ function main() {
     const originPath = getOriginPath(); //leggo
     const csv = readFile(originPath);
 
-    // const csv = readCsvFromFile("./data/test1.csv");
+    // const csv = readFile("./data/test1.csv");
 
     const json = fromCsvToJson(csv); //trasformo
 
     const destinationPath = getDestinationPath(); //scrivo
     writeFile(destinationPath, json);   
 
-    // writeJsonToFile("./output/test1.json", json);
+    // writeFile("./output/test1.json", json);
 }
 
 main();
 
 // (function main() {
 // }) ();
-
-function main2() {
-
-    const originPath = getOriginPath(); //leggo
-    const json = readFile(originPath);
-
-    const csv = fromJsonToCsv(json); //trasformo
-
-    const destinationPath = getDestinationPath(); //scrivo
-    writeFile(destinationPath, csv);
-
-    // writeJsonToFile("./output/test1.json", json);
-}
-
-function fromJsonToCsv(csvData){
-    
-    //converto json in array di oggetti
-    const objects = convertJsonToObjects(json); //const jsonArray = JSON.parse(jsonStr);
-
-    //ricavo le keys e li metto in un array
-    // Object.keys(objects[]);
-
-    //per ogni object ricavo le sue values e li metto in un array, e gli array totali li metto in un altro array
-    // Object.values(objects[1,2,3...]);
-
-    //aggiungo array di keys al array di array di values
-    // [
-    // ["name","surname","yob","gender"]
-    // ["lorenzo","puppo",1995,"m"]
-    // ["hugo","martinez",1994,"m"]
-    // ["sara","de prà",1989,"f"]
-    // ]
-
-    //ricavo un array di sole stringhe per row
-    // ["name,surname,yob,gender"]
-    // ["lorenzo,puppo,1995,m"]
-    // ["hugo,martinez,1994,m"]
-    // ["sara,de prà,1989,f"]
-
-    //ricavo poi un stringa unica che contiene il conenuto cvs
-    // name,surname,yob,gender
-    // lorenzo,puppo,1995,m
-    // hugo,martinez,1994,m
-    // sara,de prà,1989,f
-
-    return csv;
-}
